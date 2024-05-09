@@ -1,0 +1,74 @@
+﻿@model IEnumerable<HSMobile.Models.UserAccount>
+
+@{
+    ViewBag.Title = "Account - Hoang Son Mobile";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<a class="btn btn-warning mb-4" href="@Url.Action("Create_Admin", "UserAccounts/Create_Admin")">
+    Thêm mới tài khoản
+</a>
+
+<table class="table table-striped table-bordered">
+    <thead class="thead-dark" style="color: #111; background-color: rgba(249, 237, 112, 0.8);">
+        <tr>
+            <th>
+                ID
+            </th>
+            <th>
+                Tên tài khoản
+            </th>
+            <th>
+                Admin
+            </th>
+            <th>
+                Mật khẩu
+            </th>
+            <th>
+                Địa chỉ
+            </th>
+            <th>
+                Chức năng
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Admin)
+                </td>
+                <td data-currency>
+                    @Html.DisplayFor(modelItem => item.Password)
+                </td>
+                <td data-currency>
+                    @Html.DisplayFor(modelItem => item.AddressUser)
+                </td>
+                <td>
+                    @Html.ActionLink("Sửa", "Edit", new { id = item.ID }, new { @class = "btn btn-success btn-sm" })
+                    @Html.ActionLink("Xóa", "Delete", new { id = item.ID }, new { @class = "btn btn-danger btn-sm" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<style>
+    th, td {
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    .btn-sm {
+        width: 70px
+    }
+</style>
+
+

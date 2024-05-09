@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="CNPM_SHOPDTModelStoreContainer" CdmEntityContainer="CNPM_SHOPDTEntities">
+    <EntitySetMapping Name="KindOfPhones">
+      <EntityTypeMapping TypeName="CNPM_SHOPDTModel.KindOfPhone">
+        <MappingFragment StoreEntitySet="KindOfPhone">
+          <ScalarProperty Name="KindID" ColumnName="KindID" />
+          <ScalarProperty Name="NameOfKind" ColumnName="NameOfKind" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Phones">
+      <EntityTypeMapping TypeName="CNPM_SHOPDTModel.Phone">
+        <MappingFragment StoreEntitySet="Phones">
+          <ScalarProperty Name="PhonesID" ColumnName="PhonesID" />
+          <ScalarProperty Name="PicPhone" ColumnName="PicPhone" />
+          <ScalarProperty Name="PhonesName" ColumnName="PhonesName" />
+          <ScalarProperty Name="Chip" ColumnName="Chip" />
+          <ScalarProperty Name="Ram" ColumnName="Ram" />
+          <ScalarProperty Name="DL" ColumnName="DL" />
+          <ScalarProperty Name="CameraSau" ColumnName="CameraSau" />
+          <ScalarProperty Name="CameraTruoc" ColumnName="CameraTruoc" />
+          <ScalarProperty Name="Pin" ColumnName="Pin" />
+          <ScalarProperty Name="OldPrice" ColumnName="OldPrice" />
+          <ScalarProperty Name="Per" ColumnName="Per" />
+          <ScalarProperty Name="NewPrice" ColumnName="NewPrice" />
+          <ScalarProperty Name="KindID" ColumnName="KindID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="Find_Phone" FunctionName="CNPM_SHOPDTModel.Store.Find_Phone" />
+    <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="CNPM_SHOPDTModel.Store.sp_alterdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="CNPM_SHOPDTModel.Store.sp_creatediagram" />
+    <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="CNPM_SHOPDTModel.Store.sp_dropdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="CNPM_SHOPDTModel.Store.sp_helpdiagramdefinition">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="CNPM_SHOPDTModel.sp_helpdiagramdefinition_Result">
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="CNPM_SHOPDTModel.Store.sp_helpdiagrams">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="CNPM_SHOPDTModel.sp_helpdiagrams_Result">
+          <ScalarProperty Name="Database" ColumnName="Database" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Owner" ColumnName="Owner" />
+          <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="CNPM_SHOPDTModel.Store.sp_renamediagram" />
+    <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="CNPM_SHOPDTModel.Store.sp_upgraddiagrams" />
+    <EntitySetMapping Name="UserAccounts">
+      <EntityTypeMapping TypeName="CNPM_SHOPDTModel.UserAccount">
+        <MappingFragment StoreEntitySet="UserAccount">
+          <ScalarProperty Name="AddressUser" ColumnName="AddressUser" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Admin" ColumnName="Admin" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

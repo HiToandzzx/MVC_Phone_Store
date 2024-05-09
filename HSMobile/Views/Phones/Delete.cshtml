@@ -1,0 +1,27 @@
+﻿@model HSMobile.Models.Phone
+
+@{
+    ViewBag.Title = "Xóa " + @Html.DisplayFor(model => model.PhonesName);
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="container p-2 w-50 mb-5">
+    <div class="card p-5" style="border-radius: 20px; box-shadow: rgba(110, 110, 121, 0.3) 0px 7px 29px 0px">
+        <div class="row d-flex justify-content-between  text-center">
+
+            <div class="col">
+                <p style="font-size: 20px; font-weight: bold"><span style="color:red">BẠN CÓ CHẮC MUỐN XÓA ĐIỆN THOẠI</span> <br /> @Html.DisplayFor(model => model.PhonesName)?</p>
+                <img class="imgPhone mt-4" src="/Images/Phones/@Html.DisplayFor(model => model.PicPhone)" style="width: 200px; height: 200px" />
+
+                <div class="mt-5">
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+                        <input type="submit" value="Xóa" class="btn btn-warning w-25" style="padding: 10px 25px 15px 20px;" />
+                        <a href="@Url.Action("Index_Admin", "Phones/Index_Admin")" class="btn btn-outline-warning" style="margin-left: 20px; padding: 10px 25px 15px 20px; color: #111">Trở lại</a>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

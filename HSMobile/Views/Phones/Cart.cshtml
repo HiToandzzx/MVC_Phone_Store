@@ -1,0 +1,236 @@
+﻿@{
+    ViewBag.Title = "Giỏ hàng - Hoang Son Mobile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+
+    int totalQuantity = 0;
+    decimal totalPrice = 0;
+}
+
+<div class="container text-center w-50 empty-cart" style="border-radius: 20px; box-shadow: rgba(110, 110, 121, 0.2) 0px 7px 29px 0px; padding: 30px">
+    <img src="/Images/Home/cart-empty.png" style="width: 300px; height: 300px" />
+    <p style="font-size: 20px;">Chưa có sản phẩm nào trong giỏ hàng</p>
+    <p class="mb-4">
+        Cùng mua sắm sản phẩm tại Hoang Son Mobile nhé!
+    </p>
+    <a class="btn btn-warning" href="@Url.Action("Index", "Phones/Index")" style="padding: 10px 20px 10px 20px; font-size: 20px">
+        Mua hàng
+    </a>
+</div>
+
+<div class="container">
+    <table class="table text-center" style="box-shadow: rgba(110, 110, 121, 0.2) 0px 7px 29px 0px ">
+        <thead style="background-color: #e4e1e1; color: #111; ">
+            <tr>
+                <th>Hình ảnh</th>
+                <th>Tên điện thoại</th>
+                <th>Số lượng</th>
+                <th>Giá</th>
+                <th>Xóa</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td><img src="/Images/Phones/@item.PicPhone" style="width: 50px; height: 50px" /></td>
+                    <td>@item.PhonesName</td>
+                    <td>
+                        <div class="row">
+                            <div class="col d-flex justify-content-end mt-1">
+                                @item.Quantity
+                            </div>
+                            <div class="col d-flex justify-content-start">
+                                <a href="@Url.Action("EditCartItem", new { id = item.PhonesID})" class="edit-btn">
+                                    <i class='bx bx-message-square-edit mt-1' style="font-size: 1.5rem;"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="total-price">@item.Price</td>
+                    <td>
+                        <a href="@Url.Action("DeleteCartItem", new { id = item.PhonesID})" class="delete-btn">
+                            <i class='bx bx-trash mt-1' style="font-size: 1.5rem;"></i>
+                        </a>
+                    </td>
+                </tr>
+
+                totalQuantity += item.Quantity;
+                totalPrice += item.Quantity * item.Price;
+            }
+
+        </tbody>
+    </table>
+
+    <div class="container card text-center mb-4 mt-4 w-50" style="padding: 10px 0 10px 0; border-radius: 20px; box-shadow: rgba(110, 110, 121, 0.2) 0px 7px 29px 0px">
+        <div class="card-body">
+            <h5 style="margin: 0">Có @totalQuantity sản phẩm trong giỏ hàng</h5>
+            <div class="row">
+                <div class="col-5">
+                    <img src="/Images/Home/bg-cart-item.png" style="width: 200px; height: 200px">
+                </div>
+                <div class="col-7 mt-4">
+                    <div class="row mt-4">
+                        <div class="col-5">
+                            Số lượng sản phẩm:
+                        </div>
+                        <div class="col-7 total-quantity">
+                            @totalQuantity
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-5">
+                            Tổng tiền:
+                        </div>
+                        <div class="col-7 total-price">
+                            @totalPrice
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <a id="checkoutBtn" href="@Url.Action("Checkout", "Phones/Checkout")" class="btn btn-warning w-100">Đặt hàng</a>
+                </div>
+                <div class="col-6">
+                    <a href="@Url.Action("Index", "Phones/Index")" class="btn btn-outline-warning w-100" style="color: #111">Tiếp tục mua hàng</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    document.getElementById("checkoutBtn").addEventListener("click", function (event) {
+        event.preventDefault();
+
+        Swal.fire({
+            icon: 'success',
+            title: 'Đặt hàng thành công !',
+            timer: 2000,
+            showConfirmButton: false,
+            willOpen: () => {
+                Swal.showLoading();
+            },
+            willClose: () => {
+                window.location.href = event.target.href;
+            }
+        });
+    });
+
+    function showAlert(event) {
+        event.preventDefault();
+        Swal.fire({
+            icon: 'success',
+            title: 'Đã thêm vào giỏ hàng!',
+            showConfirmButton: false,
+            timer: 1200 // Hiển thị thông báo trong 1 giây
+        }).then(() => {
+            window.location.href = event.target.href; // Sau khi thông báo đóng, chuyển hướng đến trang AddToCart
+        });
+    }
+
+    $(document).ready(function(){
+        function toggleCartDisplay(totalQuantity) {
+            if (totalQuantity === 0) {
+                $('.empty-cart').show();
+                $('.table').hide();
+                $('.card').hide();
+            } else {
+                $('.empty-cart').hide();
+                $('.table').show();
+                $('.card').show();
+            }
+        }
+
+        var totalQuantity = parseInt('@totalQuantity');
+        toggleCartDisplay(totalQuantity);
+    });
+
+
+    $(document).ready(function () {
+        // Định dạng tổng tiền thành tiền tệ của Việt Nam
+        $('.total-price').each(function () {
+            // Lấy giá trị số tổng tiền
+            var totalPrice = parseFloat($(this).text());
+
+            // Định dạng số thành tiền tệ của Việt Nam (VND)
+            var formattedPrice = totalPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+
+            // Hiển thị tổng tiền đã được định dạng
+            $(this).text(formattedPrice);
+        });
+    });
+</script>
+
+<style>
+    * {
+        margin: 0;
+        box-sizing: border-box;
+    }
+
+    td {
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    .total-quantity {
+        display: flex;
+        justify-content: center;
+        align-items: center
+    }
+
+    .total {
+        font-weight: bold;
+    }
+
+    .bx-message-square-edit {
+        color: #039f00;
+    }
+
+        .bx-message-square-edit:hover {
+            color: #025700;
+        }
+
+    .bx-message-square-x {
+        color: red;
+    }
+
+        .bx-message-square-x:hover {
+            color: #980000;
+        }
+
+    tbody tr td a {
+        text-decoration: none;
+        color: #111;
+    }
+
+    .col-5 {
+        font-weight: bold;
+    }
+
+    .col-6 .btn {
+        padding: 15px;
+    }
+
+    .delete-btn:hover {
+        color: red
+    }
+
+    .bx-message-square-edit {
+        color: #111
+    }
+
+        .bx-message-square-edit:hover {
+            color: forestgreen
+        }
+</style>
+

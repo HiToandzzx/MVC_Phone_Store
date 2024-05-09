@@ -1,0 +1,81 @@
+﻿@model IEnumerable<HSMobile.Models.Phone>
+
+@{
+    ViewBag.Title = "STAFF - Hoang Son Mobile";
+    Layout = "~/Views/Shared/_LayoutStaff.cshtml";
+    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+
+}
+
+<table class="table table-striped table-bordered">
+    <thead class="thead-dark" style="color: #111; background-color: rgba(249, 237, 112, 0.8); ">
+        <tr>
+            <th>
+                ID
+            </th>
+            <th>
+                Hình ảnh
+            </th>
+            <th>
+                Tên
+            </th>
+            <th>
+                Giá
+            </th>
+            <th>
+                Chức năng
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PhonesID)
+                </td>
+                <td>
+                    <img src="/Images/Phones/@Html.DisplayFor(modelItem => item.PicPhone)" style="width: 60px; height: 60px">
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PhonesName)
+                </td>
+                <td data-currency>
+                    @Html.DisplayFor(modelItem => item.NewPrice)
+                </td>
+                <td>
+                    @Html.ActionLink("Sửa", "Edit_Staff", new { id = item.PhonesID }, new { @class = "btn btn-success btn-sm" })
+                    @Html.ActionLink("Xóa", "Delete_Staff", new { id = item.PhonesID }, new { @class = "btn btn-danger btn-sm" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
+
+
+<script>
+    $(document).ready(function () {
+        // Định dạng các giá trị tiền tệ trong bảng
+        $('td[data-currency]').each(function () {
+            var value = $(this).text();
+            var formattedValue = numeral(value).format('0,0'); // Định dạng giá trị tiền tệ theo đơn vị VNĐ
+            $(this).text(formattedValue);
+        });
+    });
+</script>
+
+<style>
+    th, td {
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    .btn-sm {
+        width: 70px
+    }
+</style>
+

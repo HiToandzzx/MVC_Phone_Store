@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CNPM_SHOPDTModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="KindOfPhone">
+    <Key>
+      <PropertyRef Name="KindID" />
+    </Key>
+    <Property Name="KindID" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="NameOfKind" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Phones">
+    <Key>
+      <PropertyRef Name="PhonesID" />
+    </Key>
+    <Property Name="PhonesID" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="PicPhone" Type="nvarchar(max)" />
+    <Property Name="PhonesName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Chip" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="Ram" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="DL" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="CameraSau" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="CameraTruoc" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="Pin" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="OldPrice" Type="int" Nullable="false" />
+    <Property Name="Per" Type="tinyint" Nullable="false" />
+    <Property Name="NewPrice" Type="int" Nullable="false" />
+    <Property Name="KindID" Type="nvarchar" MaxLength="10" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserAccount">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Admin" Type="bit" />
+    <Property Name="Password" Type="nvarchar" MaxLength="50" />
+    <Property Name="AddressUser" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__Phones__KindID__41B8C09B">
+    <End Role="KindOfPhone" Type="Self.KindOfPhone" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Phones" Type="Self.Phones" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="KindOfPhone">
+        <PropertyRef Name="KindID" />
+      </Principal>
+      <Dependent Role="Phones">
+        <PropertyRef Name="KindID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="Find_Phone" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="PhonesName" Type="nvarchar" Mode="In" />
+    <Parameter Name="KindID" Type="nvarchar" Mode="In" />
+    <Parameter Name="MinNewPrice" Type="int" Mode="In" />
+    <Parameter Name="MaxNewPrice" Type="int" Mode="In" />
+    <Parameter Name="RAM" Type="nvarchar" Mode="In" />
+    <Parameter Name="DL" Type="nvarchar" Mode="In" />
+    <Parameter Name="Pin" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+  <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <EntityContainer Name="CNPM_SHOPDTModelStoreContainer">
+    <EntitySet Name="KindOfPhone" EntityType="Self.KindOfPhone" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Phones" EntityType="Self.Phones" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserAccount" EntityType="Self.UserAccount" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Phones__KindID__41B8C09B" Association="Self.FK__Phones__KindID__41B8C09B">
+      <End Role="KindOfPhone" EntitySet="KindOfPhone" />
+      <End Role="Phones" EntitySet="Phones" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,362 @@
+﻿@model List<HSMobile.Models.Phone>
+
+@{
+    ViewBag.Title = "Hoang Son Mobile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+}
+
+<div class="row">
+    <div class="col-sm-12 col-md-4">
+        <img src="/Images/Home/home2.png" class="img-fluid" />
+        <img src="/Images/Home/home1.png" class="img-fluid" />
+    </div>
+    <div class="col-sm-12 col-md-8">
+        <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4" aria-label="Slide 5"></button>
+            </div>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="/Images/Home/carousel1.png" class="d-block w-100">
+                </div>
+                <div class="carousel-item">
+                    <img src="/Images/Home/carousel2.png" class="d-block w-100">
+                </div>
+                <div class="carousel-item">
+                    <img src="/Images/Home/carousel3.png" class="d-block w-100">
+                </div>
+                <div class="carousel-item">
+                    <img src="/Images/Home/carousel4.png" class="d-block w-100">
+                </div>
+                <div class="carousel-item">
+                    <img src="/Images/Home/carousel5.png" class="d-block w-100">
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon btn-carousel" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                <span class="carousel-control-next-icon btn-carousel" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-4">
+    @using (Html.BeginForm("Index", "Phones", FormMethod.Get))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="row" style="border-radius: 10px; box-shadow: rgba(110, 110, 121, 0.2) 0px 7px 29px 0px; padding: 30px; color: #5271ff;">
+            <div class="col-md-2 filter">
+                <i class='bx bx-filter-alt' style="font-size: 25px; color: #111;"></i>
+                <span style="font-size: 18px; color: #111; margin-left: 10px">Bộ lọc</span>
+            </div>
+
+            <div class="col-md-2">
+                <div class="form-group">
+                    @Html.DropDownList("KindID", null, "Hãng", new { @class = "form-control" })
+                    <i class='bx bx-chevron-down'></i>
+                    <i class='bx bx-chevron-up'></i>
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <div class="form-group">
+                    @Html.DropDownList("priceRange", ViewBag.PriceRanges as SelectList, "Giá", new { @class = "form-control", id = "PriceRange" })
+                    <i class='bx bx-chevron-down'></i>
+                    <i class='bx bx-chevron-up'></i>
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <div class="form-group">
+                    @Html.DropDownList("RAM", ViewBag.RamOptions as SelectList, "RAM", new { @class = "form-control", id = "RAM" })
+                    <i class='bx bx-chevron-down'></i>
+                    <i class='bx bx-chevron-up'></i>
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <div class="form-group">
+                    @Html.DropDownList("DL", ViewBag.DlOptions as SelectList, "Dung lượng", new { @class = "form-control", id = "DL" })
+                    <i class='bx bx-chevron-down'></i>
+                    <i class='bx bx-chevron-up'></i>
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <div class="form-group">
+                    <input type="submit" name="submit" value="Tìm kiếm" class="btn btn-warning" />
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+
+<div class="mt-5">
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-sm6 col-md-3 lg-3" id="margin-card">
+                <div class="card mb-4 text-center" >
+                    <a href="@Url.Action("Details", new { id = item.PhonesID })">
+                        <div class="zoom-wrapper">
+                            <img src="/Images/Phones/@Html.DisplayFor(modelItem => item.PicPhone)" class="card-img-top mt-2" alt="Phone Image">
+                        </div>
+                    </a>
+
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            @Html.DisplayFor(modelItem => item.PhonesName)
+                        </h5>
+                        <ul class="card-text-list text-start">
+                            <li class="card-text">
+                                @Html.DisplayNameFor(modelItem => item.Chip):
+                                @Html.DisplayFor(modelItem => item.Chip)
+                            </li>
+                            <li class="card-text">
+                                @Html.DisplayNameFor(modelItem => item.Ram):
+                                @Html.DisplayFor(modelItem => item.Ram)
+                            </li>
+                            <li class="card-text">
+                                Dung lượng:
+                                @Html.DisplayFor(modelItem => item.DL)
+                            </li>
+                            <li class="card-text">
+                                @Html.DisplayNameFor(modelItem => item.Pin):
+                                @Html.DisplayFor(modelItem => item.Pin)
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-footer d-flex justify-content-center align-items-center">
+                        <div class="col">
+                            <div class="row">
+                                <p style="color: #111; font-size: 13px;">
+                                    <span class="old-price" style="text-decoration: line-through;">
+                                        @Html.DisplayFor(modelItem => item.OldPrice)
+                                    </span>
+                                    <span class="m-lg-2">
+                                        <span>-</span>@Html.DisplayFor(modelItem => item.Per)<span>%</span>
+                                    </span>
+                                </p>
+
+
+                            </div>
+                            <div class="row">
+                                <div class="new-price" style="color: red; font-weight: bold;">
+                                    @Html.DisplayFor(modelItem => item.NewPrice)
+                                </div>
+                            </div>
+                        </div>
+                        <a class='bx bx-cart addToCart' href="/Phones/AddToCart/@item.PhonesID" onclick="showAlert(event)"></a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    function showAlert(event) {
+        event.preventDefault();
+        Swal.fire({
+            icon: 'success',
+            title: 'Đã thêm vào giỏ hàng!',
+            showConfirmButton: false,
+            timer: 1200 // Hiển thị thông báo trong 1 giây
+        }).then(() => {
+            window.location.href = event.target.href; // Sau khi thông báo đóng, chuyển hướng đến trang AddToCart
+        });
+    }
+
+    $(document).ready(function () {
+        $('select.form-control').each(function () {
+            var iconDown = $(this).siblings('i.bx-chevron-down');
+            var iconUp = $(this).siblings('i.bx-chevron-up');
+
+            $(this).on('click', function () {
+                if (iconDown.is(':visible')) {
+                    iconDown.hide();
+                    iconUp.show();
+                } else {
+                    iconUp.hide();
+                    iconDown.show();
+                }
+            });
+
+            $(this).on('focusout', function () {
+                iconUp.hide();
+                iconDown.show();
+            });
+        });
+    });
+
+    $(document).ready(function () {
+        $('.old-price').each(function () {
+            // Lấy giá trị số tổng tiền
+            var totalPrice = parseFloat($(this).text());
+
+            // Định dạng số thành tiền tệ của Việt Nam (VND)
+            var formattedPrice = totalPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+
+            // Hiển thị tổng tiền đã được định dạng
+            $(this).text(formattedPrice);
+        });
+
+        $('.new-price').each(function () {
+            // Lấy giá trị số tổng tiền
+            var totalPrice = parseFloat($(this).text());
+
+            // Định dạng số thành tiền tệ của Việt Nam (VND)
+            var formattedPrice = totalPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+
+            // Hiển thị tổng tiền đã được định dạng
+            $(this).text(formattedPrice);
+        });
+    });
+
+</script>
+
+<style>
+    * {
+        margin: 0;
+        box-sizing: border-box;
+    }
+
+    /* ẢNH SẢN PHẨM */
+    .card-img-top {
+        width: 80%;
+        padding: 18px 0 13px 0;
+    }
+
+    .card {
+        border-radius: 20px;
+    }
+
+    .card-title {
+        font-size: 15px;
+    }
+
+    .card-text-list {
+        margin: 0;
+        padding: 0;
+        margin-left: 20px;
+        font-size: 13px;
+    }
+
+    .card-text {
+        margin-bottom: 5px;
+    }
+
+    /* BỘ LỌC */
+    .filter {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .bx-chevron-up {
+        display: none;
+    }
+
+    .bx-chevron-down {
+        display: inline-block;
+    }
+
+    .form-group i {
+        font-size: 25px;
+    }
+
+    .form-group {
+        position: relative;
+    }
+
+        .form-group i.bx-chevron-down {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+        }
+
+        .form-group i.bx-chevron-up {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+        }
+
+    /* BUTTON ADD TO CART */
+    .bx.bx-cart.addToCart {
+        text-decoration: none;
+        color: #ebb820;
+        padding: 5px;
+        border-radius: 15px;
+        font-size: 35px;
+        box-shadow: 6px 0 4px rgba(0,0,0,.06), 4px 0 4px rgba(0,0,0,.05);
+    }
+
+        .bx.bx-cart.addToCart:hover {
+            transition: transform 0.5s ease;
+            transform: scale(1.1);
+        }
+
+    p {
+        margin: 0;
+    }
+
+    /* HOVER ẢNH SẢN PHẨM */
+    .zoom-wrapper {
+        overflow: hidden;
+    }
+
+        .zoom-wrapper img {
+            transition: transform 0.5s ease;
+        }
+
+        .zoom-wrapper:hover img {
+            transform: scale(1.1);
+        }
+
+    /* CAROUSEL */
+    .btn-carousel {
+        width: 40px;
+        height: 70px;
+        background-color: #929292;
+        border-radius: 5px;
+    }
+
+    #carouselExampleCaptions .carousel-indicators button {
+        background-color: #383838;
+        border-radius: 50%;
+        width: 7px;
+        height: 7px;
+    }
+
+    #carouselExampleCaptions .carousel-indicators .active {
+        background-color: red;
+    }
+
+    .carousel-control-prev-icon {
+        box-shadow: 6px 0 4px rgba(0,0,0,.09), 4px 0 4px rgba(0,0,0,.1);
+    }
+
+    .carousel-control-next-icon {
+        box-shadow: -6px 0 4px rgba(0,0,0,.09), -4px 0 4px rgba(0,0,0,.1);
+    }
+
+    .carousel-item {
+        transition: 500ms;
+    }
+</style>

@@ -1,0 +1,44 @@
+﻿@model HSMobile.Models.CartItem
+
+@{
+    ViewBag.Title = "Cập nhật số lượng - Hoang Son Mobile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.PhonesID)
+
+    <div class="container p-2 w-50">
+        <div class="card p-5" style="border-radius: 20px; box-shadow: rgba(110, 110, 121, 0.3) 0px 7px 29px 0px">
+            <div class="row d-flex justify-content-between  text-center">
+
+                <div class="col">
+                    <p style="font-size: 20px; font-weight: bold">CẬP NHẬT SỐ LƯỢNG SẢN PHẨM</p>
+                    <div class="d-flex justify-content-center align-items-center">
+                        @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control quantity" } })
+                        @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
+                    </div>
+
+                    <img class="imgPhone mt-4" src="/Images/Phones/@Html.DisplayFor(model => model.PicPhone)" style="width: 200px; height: 200px; margin-left: 10px" />
+
+                    <div class="mt-5">
+                        <input type="submit" value="Cập nhật" class="btn btn-warning" style="padding: 10px 25px 15px 20px; color: #111" />
+                        <a href="@Url.Action("Cart", "Phones/Cart")" class="btn btn-outline-warning" style="margin-left: 20px; padding: 10px 25px 15px 20px; color:#111">Trở lại</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<style>
+    .quantity {
+        width: 50%;
+        height: 50px;
+        margin-left: 10px;
+    }
+
+</style>
+

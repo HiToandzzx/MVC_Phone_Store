@@ -1,0 +1,131 @@
+﻿@model HSMobile.Models.Phone
+
+@{
+    ViewBag.Title = "Cập nhật - " + @Html.DisplayFor(model => model.PhonesName);
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.PhonesID)
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4 mt-5">
+                <img src="/Images/Phones/@Html.DisplayFor(Model => Model.PicPhone)" style="width: 280px; height: 280px">
+                <div class="d-flex" style="margin-top:38px">
+                    @Html.EditorFor(model => model.PicPhone, new { htmlAttributes = new { @class = "form-control w-50" } })
+                    @Html.ValidationMessageFor(model => model.PicPhone, "", new { @class = "text-danger" })
+                    <input type="file" name="pic-phone" id="pic-phone" style="display: none;" />
+                    <button type="button" class="btn btn-outline-secondary d-flex" id="FileUpload" style="margin-left: 10px">Chọn ảnh</button>
+                </div>
+            </div>
+
+            <div class="col-sm-4 ">
+                <div class="col-md-10">
+                    @Html.LabelFor(model => model.PhonesID, "ID", new { @class = "control-label" })
+                    @Html.EditorFor(model => model.PhonesID, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.PhonesID, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-10">
+                    @Html.LabelFor(model => model.KindID, "Loại", new { @class = "control-label" })
+                    @Html.DropDownList("KindID", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.KindID, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-10">
+                    @Html.LabelFor(model => model.PhonesName, "Tên", new { @class = "control-label" })
+                    @Html.EditorFor(model => model.PhonesName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.PhonesName, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-10">
+                    @Html.LabelFor(model => model.Chip, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.EditorFor(model => model.Chip, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Chip, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-10">
+                    @Html.LabelFor(model => model.Ram, new { @class = "control-label" })
+                    @Html.EditorFor(model => model.Ram, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Ram, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-10">
+                    @Html.LabelFor(model => model.DL, "Dung lượng", new { @class = "control-label" })
+                    @Html.EditorFor(model => model.DL, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.DL, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-10 mt-4 d-flex justify-content-center">
+                    <input type="submit" value="Cập nhật" class="btn btn-success edit-btn" style="margin-right: 15px;" />
+                    <a class="btn btn-outline-success edit-btn" href="@Url.Action("Index_Admin", "Phones/Index_Admin")">
+                        Quay lại
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-sm-4">
+                <div class="col-md-10">
+                    @Html.LabelFor(model => model.CameraSau, "Camera sau", new { @class = "control-label" })
+                    @Html.EditorFor(model => model.CameraSau, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CameraSau, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-10">
+                    @Html.LabelFor(model => model.CameraTruoc, "Camera trước", new { @class = "control-label" })
+                    @Html.EditorFor(model => model.CameraTruoc, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CameraTruoc, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-10">
+                    @Html.LabelFor(model => model.Pin, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.EditorFor(model => model.Pin, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Pin, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-10">
+                    @Html.LabelFor(model => model.OldPrice, "Giá cũ", new { @class = "control-label" })
+                    @Html.EditorFor(model => model.OldPrice, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.OldPrice, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-10">
+                    @Html.LabelFor(model => model.Per, "Phần trăm giảm giá", new { @class = "control-label" })
+                    @Html.EditorFor(model => model.Per, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Per, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-10">
+                    @Html.LabelFor(model => model.NewPrice, "Giá mới", new { @class = "control-label" })
+                    @Html.EditorFor(model => model.NewPrice, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.NewPrice, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        var fileupload = $("#pic-phone");
+        var image = $("#FileUpload");
+        image.click(function () {
+            fileupload.click();
+        });
+        fileupload.change(function () {
+            var fileName = $(this).val().split('\\')[$(this).val().split('\\').length - 1];
+            document.getElementById("PicPhone").value = fileName;
+        });
+    });
+</script>
+
+<style>
+    .col-md-10 {
+        margin-bottom: 5px;
+    }
+
+    .control-label {
+        font-weight: bold;
+        margin-bottom: 5px
+    }
+
+    .edit-btn {
+        padding: 10px 25px 10px 25px;
+    }
+</style>

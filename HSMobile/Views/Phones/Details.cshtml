@@ -1,0 +1,155 @@
+﻿@model HSMobile.Models.Phone
+
+@{
+    ViewBag.Title = @Html.DisplayFor(model => model.PhonesName);
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="container">
+    <div class="card p-3" style="border-radius: 20px; box-shadow: rgba(110, 110, 121, 0.3) 0px 7px 29px 0px">
+        <div class="row d-flex justify-content-between">
+            <div class="col-sm-12 col-md-5 text-center mt-4">
+                <div class="phoneName">
+                    @Html.DisplayFor(model => model.PhonesName)
+                </div>
+                <img class="imgPhone" src="/Images/Phones/@Html.DisplayFor(model => model.PicPhone)" style="width: 350px; height: 350px" />
+            </div>
+
+            <div class="col-sm-12 col-md-7">
+                <div class="" style="background: linear-gradient(272.75deg, #f38c25 38.99%, #fb6848 76.29%); padding: 15px 15px 10px 15px; border-radius: 20px; margin-left: 20px">
+                    <div class="row">
+                        <div class="col-7">
+                            <div class="header" style="color: #fff; margin-left: 20px">
+                                <span style="font-size: 20px">Online giá rẻ quá</span>
+
+                                <div class="col-sm-12 new-price" style="font-size: 25px; font-weight: bold">
+                                    @Html.DisplayFor(model => model.NewPrice)
+                                </div>
+
+                                <div class="col-sm-8">
+                                    <span class="old-price" style="text-decoration: line-through;">
+                                        @Html.DisplayFor(model => model.OldPrice)
+                                    </span>
+                                    <span style="margin-left: 10px">
+                                        (-@Html.DisplayFor(model => model.Per)%)
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-5 d-flex justify-content-center align-items-center">
+                            <button type="button" class="btn btn-success" style="font-size: 20px" onclick="window.location.href='@Url.Action("AddToCart", new { id = Model.PhonesID })'">Mua ngay</button>
+                            <a class='btn btn-warning bx bx-cart addToCart' href="@Url.Action("AddToCart", new { id = Model.PhonesID })" onclick="showAlert(event)" style=" font-size: 30px; "></a>
+                        </div>
+                    </div>
+
+
+                    <div class="systemPhone mt-3" style="background-color: #fff; padding: 10px; border-radius: 20px;">
+                        <span class="d-flex justify-content-center" style="font-weight: bold">Cấu hình điện thoại @Html.DisplayFor(model => model.PhonesName)</span>
+                        <table class="table table-striped mt-3">
+                            <tr>
+                                <td scope="col">@Html.DisplayNameFor(model => model.Chip):</td>
+                                <td scope="col">@Html.DisplayFor(model => model.Chip)</td>
+                            </tr>
+                            <tr>
+                                <td scope="col">@Html.DisplayNameFor(model => model.Ram):</td>
+                                <td scope="col">@Html.DisplayFor(model => model.Ram)</td>
+                            </tr>
+                            <tr>
+                                <td scope="col">Dung lượng:</td>
+                                <td scope="col">@Html.DisplayFor(model => model.DL)</td>
+                            </tr>
+                            <tr>
+                                <td scope="col">Camera sau:</td>
+                                <td scope="col">@Html.DisplayFor(model => model.CameraSau)</td>
+                            </tr>
+                            <tr>
+                                <td scope="col">Camera trước:</td>
+                                <td scope="col">@Html.DisplayFor(model => model.CameraTruoc)</td>
+                            </tr>
+                            <tr>
+                                <td scope="col">@Html.DisplayNameFor(model => model.Pin):</td>
+                                <td scope="col">@Html.DisplayFor(model => model.Pin)</td>
+                            </tr>
+                        </table>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('.old-price').each(function () {
+            // Lấy giá trị số tổng tiền
+            var totalPrice = parseFloat($(this).text());
+
+            // Định dạng số thành tiền tệ của Việt Nam (VND)
+            var formattedPrice = totalPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+
+            // Hiển thị tổng tiền đã được định dạng
+            $(this).text(formattedPrice);
+        });
+
+        $('.new-price').each(function () {
+            // Lấy giá trị số tổng tiền
+            var totalPrice = parseFloat($(this).text());
+
+            // Định dạng số thành tiền tệ của Việt Nam (VND)
+            var formattedPrice = totalPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+
+            // Hiển thị tổng tiền đã được định dạng
+            $(this).text(formattedPrice);
+        });
+    });
+
+    function showAlert(event) {
+        event.preventDefault();
+        Swal.fire({
+            icon: 'success',
+            title: 'Đã thêm vào giỏ hàng!',
+            showConfirmButton: false,
+            timer: 1200
+        }).then(() => {
+            window.location.href = event.target.href;
+        });
+    }
+</script>
+
+<style>
+    .phoneName {
+        font-size: 25px;
+        font-weight: bold;
+        margin-bottom: 35px;
+    }
+
+    .imgPhone {
+        display: block;
+        margin: 0 auto;
+    }
+
+    .details {
+        margin-bottom: 20px;
+    }
+
+    .col-sm-8 {
+        margin-bottom: 10px
+    }
+
+    .atc {
+        text-decoration: none;
+        color: #111;
+    }
+
+    .addToCart {
+        text-decoration: none;
+    }
+</style>
+
+

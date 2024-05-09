@@ -65,11 +65,11 @@ namespace HSMobile.Controllers
             }
 
             // TÌM THEO RAM
-            var ramOptions = new List<string> { "4GB", "6GB", "8GB", "12GB", "16GB" }; 
+            var ramOptions = new List<string> { "4 GB", "6 GB", "8 GB", "12 GB", "16 GB" }; 
             ViewBag.RamOptions = new SelectList(ramOptions, RAM);
 
             // TÌM THEO DUNG LƯỢNG
-            var dlOptions = new List<string> { "64GB", "128GB", "256GB", "512GB", "1TB" }; 
+            var dlOptions = new List<string> { "64 GB", "128 GB", "256 GB", "512 GB", "1 TB" }; 
             ViewBag.DlOptions = new SelectList(dlOptions, DL);
 
             // KHỞI TẠO
